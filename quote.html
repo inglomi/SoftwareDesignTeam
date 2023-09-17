@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=deivce-width,initial-scale=1.0">
+    <title>Team 5 Fuel Quote Service</title>
+    <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="./index.html" id="navbar__logo"><img src="./src/images/logo.png" height="75px"></a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="./index.html" class="navbar__links">
+                        Home
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="/" class="navbar__links">
+                        About Us
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./quote.html" class="navbar__links">
+                        Request A Quote
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="/" class="navbar__links">
+                        Contact Us
+                    </a>
+                </li>
+                <li class="navbar_btn">
+                    <a href="./login.html" class="button">
+                        Login
+                    </a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+    <script src="./src/app.js"></script>
+    
+    <div class="wrapper">
+        <form action="">
+            <h1>Fuel Quote Form</h1>
+
+            <div class="input-box">
+                <p>Gallons Requested:</p>
+                <input type="number" name="gallons" placeholder="Number of Gallons" step=".001" class="form-control" min="0" required>
+            </div>
+
+            <div class="input-box">
+                <p>Delivery Address:</p>
+                <input type="text" name="address" placeholder="Street address" required></br>
+                <input type="text" name="secondAddress" placeholder="Apt, suite, unit, building, floor, etc."></br>
+            </div>
+
+            <div>
+                <p>City:</p>
+                <input type="text" name="city" required>
+            </div>
+
+            <div>
+                <p>State:</p>
+                <input type="text" name="state" required>
+            </div>
+
+            <div>
+                <p>Zip Code:</p>
+                <input type="number" name="zip" required>
+            </div>
+
+            <div>
+                <p>Delivery Date:</p>
+                <input type="date" name="deliveryDate" required>
+            </div>
+
+            <div>
+                <p>Suggested Price / gallon:</p>
+                <input type="number" name="price">
+            </div>
+
+            <div>
+                <p>Total Amount Due</p>
+                <input type="number" name="total">
+            </div> 
+        </form>
+    </div>
+</body>
+</html>
