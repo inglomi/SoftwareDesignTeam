@@ -47,52 +47,58 @@
         </div>
     </nav>
     <script src="./src/app.js"></script>
-    
-    <div class="wrapper">
-        <form action="">
-            <h1>Fuel Quote Form</h1>
 
-            <div class="input-box">
-                <p>Gallons Requested:</p>
-                <input type="number" name="gallons" placeholder="Number of Gallons" step=".001" class="form-control" min="0" required>
-            </div>
+    <div class="form_style">
+        <div class="container">
+            <header>Fuel Quote Form</header>
+            <form action="#" class="form">
 
-            <div class="input-box">
-                <p>Delivery Address:</p>
-                <input type="text" name="address" placeholder="Street address" required></br>
-                <input type="text" name="secondAddress" placeholder="Apt, suite, unit, building, floor, etc."></br>
-            </div>
+                <div class="input-box">
+                    <p>Gallons Requested:</p>
+                    <input type="number" name="gallons" placeholder="Number of Gallons" step=".001" class="form-control" min="0" required>
+                </div>
 
-            <div>
-                <p>City:</p>
-                <input type="text" name="city" required>
-            </div>
+                <div class="input-box">
+                    <p>Delivery Address:</p>
+                    <input type="text" name="address" placeholder="Street address" readonly></br>
+                    <input type="text" name="secondAddress" placeholder="Apt, suite, unit, building, floor, etc." readonly></br>
+                </div>
 
-            <div>
-                <p>State:</p>
-                <input type="text" name="state" required>
-            </div>
+                <div class="input-box">
+                    <p>City:</p>
+                    <input type="text" name="city" placeholder="Enter your city" readonly>
+                </div>
 
-            <div>
-                <p>Zip Code:</p>
-                <input type="number" name="zip" required>
-            </div>
+                <div class="input-box">
+                    <p>State:</p>
+                    <input type="text" name="state" placeholder="Enter your state" readonly>
+                </div>
 
-            <div>
-                <p>Delivery Date:</p>
-                <input type="date" name="deliveryDate" required>
-            </div>
+                <div class="input-box">
+                    <p>Zip Code:</p>
+                    <input type="number" name="zip" placeholder="Enter your postal code" readonly>
+                </div>
 
-            <div>
-                <p>Suggested Price / gallon:</p>
-                <input type="number" name="price">
-            </div>
+                <div class="input-box">
+                    <p>Delivery Date:</p>
+                    <input type="date" name="deliveryDate" required>
+                </div>
 
-            <div>
-                <p>Total Amount Due</p>
-                <input type="number" name="total">
-            </div> 
-        </form>
+                <div class="input-box">
+                    <p>Suggested Price / gallon:</p>
+                    <input type="number" name="price" readonly>
+                </div>
+
+                <div class="input-box">
+                    <p>Total Amount Due</p>
+                    <input type="number" name="total" readonly>
+                </div> 
+                
+                <div>
+                    <button type="submit" class="submit_btn">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
