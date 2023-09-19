@@ -1,3 +1,4 @@
+/* Navigation Bar Styling*/
 body {
     background-color: #cfcbfa;
 }
@@ -39,10 +40,6 @@ body {
     text-decoration: none;
 }
 
-.fa-gem {
-    margin-right: 0.5rem;
-}
-
 .navbar__menu {
     display: flex;
     align-items: center;
@@ -51,6 +48,7 @@ body {
 }
 
 .navbar__item {
+    cursor: pointer;
     height: 80px;
 }
 
@@ -90,12 +88,38 @@ body {
 .button:hover {
     background: rgb(88, 103, 250);
     transition: all 0.3s ease;
-
 }
 
 .navbar__links:hover {
     color: #95a8f7;
     transition: all 0.3s ease;
+}
+
+.dropdown__item {
+    display: none;
+    position: relative;
+    background-color: #131313;
+    height: 80px;
+    z-index: 999;
+}
+
+.dropdown__links {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 0 1rem;
+    height: 100%;
+}
+
+.dropdown__item .dropdown__links:hover {
+    background-color: #ffffff;
+    color: #95a8f7;
+}
+
+.navbar__item:hover .dropdown__item {
+    display: block;
 }
 
 @media screen and (max-width:960px) {
@@ -154,6 +178,21 @@ body {
         width: 100%;
         display: table;
     }
+    
+    .navbar__item:hover .dropdown__item {
+        display: block;
+    }
+
+    .dropdown__item {
+        width: 100%;
+    }
+    
+    .dropdown__links {
+        text-align: center;
+        padding: 2rem;
+        width: 100%;
+        display: table;
+    }
 
     #mobile-menu {
         position: absolute;
@@ -193,6 +232,7 @@ body {
     }
 }
 
+/*Quote Form Request Styling*/
 .form_style {
     min-height: 100vh;
     display: flex;
@@ -261,4 +301,52 @@ body {
 
 button.submit_btn:hover {
     background-color: rgb(88, 103, 250);
+}
+
+/*Quote History Styling*/
+h2 {
+    font-family: Lato;
+    color: #E6E6E6;
+    margin:0px
+}
+
+h1 {
+    font-family: Forum;
+    color: #D3D6D6;
+    margin:0px;
+}
+.titlepage {
+    background-color: rgb(130, 106, 251);
+    padding-left: 20px;
+    padding-top: 10px;
+    margin:0px;
+    height: 60px;
+}
+
+li a:link {
+    color: #000;
+    text-decoration: none;
+}
+li a:hover {
+    color:#e9eeee;
+    text-decoration: none;
+}
+table {
+    margin:15px auto;
+    padding: 0px 50px;
+    border: 2px solid gray;
+    background-color: #c7caca;
+    border-radius: 10px;
+}
+th {
+    padding:0px 50px;
+    font-family: Garamond;
+    font-size: 20px;
+}
+td {
+    background-color: #dfe2e2;
+    padding: 2px 50px;
+    font-size: 17px; 
+    text-align: center;
+    font-family: Garamond;
 }

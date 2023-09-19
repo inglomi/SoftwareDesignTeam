@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=deivce-width,initial-scale=1.0">
+    <title>Team 5 Fuel Quote Service</title>
+    <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="./index.html" id="navbar__logo"><img src="./src/images/logo.png" height="75px"></a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="./index.html" class="navbar__links">
+                        Home
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="/" class="navbar__links">
+                        About Us
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a  class="navbar__links">
+                        Request A Quote
+                    </a>
+                    <ul>
+                        <li class="dropdown__item">
+                            <a href="./quote.html" class="dropdown__links">Quote Form</a>
+                        </li>
+                        <li class="dropdown__item">
+                            <a href="./history.html" class="dropdown__links">Quote History</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="navbar__item">
+                    <a href="/" class="navbar__links">
+                        Contact Us
+                    </a>
+                </li>
+                <li class="navbar_btn">
+                    <a href="./login.html" class="button">
+                        Login
+                    </a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+    <script src="./src/app.js"></script>
+    
+    <!--Quote History Table-->
+    <div class="titlepage">
+        <h1 class="title">Quote History</h1>
+    </div>
+    <div class="quote">
+        <table>
+            <thead class="qoutehistory">
+                <th>Id</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Address</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>11985</td>
+                    <td>John Doe</td>
+                    <td>03-12-2022</td>
+                    <td>25</td>
+                    <td>$10000</td>
+                    <td>Texas, USA</td>
+                </tr>
+                <tr>
+                    <td>17845</td>
+                    <td>Janet Deer</td>
+                    <td>12-21-2023</td>
+                    <td>42</td>
+                    <td>$27000</td>
+                    <td>New York, USA,</td>
+                    </tr>
+                    <tr>
+                        <td>23448</td>
+                        <td>Langer Lamer</td>
+                        <td>03-10-2023</td>
+                        <td>30</td>
+                        <td>$17000</td>
+                        <td>Vancouver, Canada</td>
+                    </tr>
+                    <tr>
+                        <td>31088</td>
+                        <td>Kathy Lamer</td>
+                        <td>11-5-2023</td>
+                        <td>14</td>
+                        <td>$9000</td>
+                        <td>Dublin, Ireland</td>
+                    </tr>
+                    <tr>
+                        <td>11008</td>
+                        <td>Walter Lranger</td>
+                        <td>07-15-2022</td>
+                        <td>10</td>
+                        <td>$500</td>
+                        <td>Montreal, Canada</td>
+                    </tr>
+                    <tr>
+                        <td>11088</td>
+                        <td>Malter Lreder</td>
+                        <td>09-19-2021</td>
+                        <td>17</td>
+                        <td>$800</td>
+                        <td>Mumbai, India</td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
