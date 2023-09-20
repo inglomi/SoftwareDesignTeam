@@ -1,0 +1,67 @@
+h2{
+    font-family: Lato;
+    color: #E6E6E6;
+    margin:0px
+}
+.nav-border{
+    background-color: #ffffff;
+    padding-left: 15px;
+    padding-top: 3px;
+    margin:0px;
+    height: 50px;
+}
+h1{
+    font-family: Forum;
+    color: #D3D6D6;
+    margin:0px;
+}
+.titlepage{
+    background-color: #7983fc;
+    padding-left: 20px;
+    padding-top: 10px;
+    margin:0px;
+    height: 60px;
+}
+body{
+    background-color: #cfcbfa;
+    margin:0px;
+}
+.navbar ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #95a8f7;
+}
+.navbar li{
+    float:left;
+    padding: 10px;
+    color:#D3D6D6;
+}
+li a:link{
+    color: #000;
+    text-decoration: none;
+}
+li a:hover{
+    color:#475074;
+    text-decoration: none;
+}
+table{
+    margin:15px auto;
+    padding: 0px 50px;
+    border: 2px solid gray;
+    background-color: #c7caca;
+    border-radius: 10px;
+}
+th{
+    padding:0px 50px;
+    font-family: Garamond;
+    font-size: 20px;
+}
+td{
+    background-color: #dfe2e2;
+    padding: 2px 50px;
+    font-size: 17px; 
+    text-align: center;
+    font-family: Garamond;
+}
