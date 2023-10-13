@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server');
+const server = require('../login_backend'); // Assuming your backend file is named login_backend.js
 const should = chai.should();
 
 chai.use(chaiHttp);
