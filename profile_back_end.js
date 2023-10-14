@@ -1,41 +1,43 @@
 const express = require('express');
 const port = 3000;
-const app = express();
+const server = express();
+module.exports = server;
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+server.use(express.static('src'));
 
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.static('src'));
+let userProfile = {
+  firstName: 'Viet',
+  lastName: 'Pham',
+  address1: '123 street',
+  address2: 'optional',
+  city: 'Houston',
+  state: 'Texas',
+  zipcode: '77004'
+};
 
-app.get('/profile', (req, res) => {
+let userPassword = {
+  currentPass: 'aaaaaaaaaaaaa!',
+  newPass: 'bbbbbbbbbbbbbb!'
+};
+
+server.get('/profile', (req, res) => {
   res.sendFile(__dirname + '/src/profile.html');
 });
 
-app.post('/profile_saved', (req, res) => {
-  const { firstName, lastName, address1, address2, city, state, zipcode} = req.body;
-  const userProfile = {
-    firstName,
-    lastName,
-    address1,
-    address2,
-    city,
-    state,
-    zipcode
-  };
+server.post('/profile_saved', (req, res) => {
+  const { firstName, lastName, address1, address2, city, state, zipcode } = req.body;
+  userProfile = { firstName, lastName, address1, address2, city, state, zipcode };
   res.send('Your profile has been updated!');
 });
 
-app.post('/password_reset', (req, res) => {
-  const {currentPass, newPass, confirmPass} = req.body;
-
-  const userPassword = {
-    currentPass,
-    newPass,
-    confirmPass
-  }
-  
+server.post('/password_reset', (req, res) => {
+  const { currentPass, newPass } = req.body;
+  userPassword = { currentPass, newPass };
   res.send('Your password has been updated!');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+server.listen(port, () => {
+  console.log(`server is running on port: ${port}`);
 });
+
