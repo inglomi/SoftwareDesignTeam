@@ -1,4 +1,4 @@
-const express = require('express');
+
 //Adds new quote in table
 function newQuote(qoute){
     let newqoute = document.createElement("tr");
