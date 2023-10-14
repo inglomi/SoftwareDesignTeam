@@ -9,6 +9,19 @@ function newQuote(qoute){
     });
     return newqoute;
 }
+
+//Test
+id = 20435;
+fullname = "Edith Finch";
+date = "2-17-2023";
+gallon_requested = 24;
+price = "$5300";
+address = "54 Tack Way";
+state = "Houston, Texas";
+zipcode = 77012;
+price_per_gallon = 220.8;
+deliverydate = "2-30-2023";
+
 //qoute properties
 let id,fullname,date,gallon_requested,price,address,state,zipcode,price_per_gallon,deliverydate;
 
