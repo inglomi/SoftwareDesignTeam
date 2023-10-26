@@ -3,25 +3,64 @@
     <head>
         <meta charset="UTF-8">
         <title>Quote form</title>
-        <link rel="stylesheet" href="history.css">
+        <link rel="stylesheet" href="/styles.css">
     </head>
     <script src="quotehistory.js" defer></script>
-    <body>
-        <div class="nav-border">
-            <a href="./index.html"><img src="logo.png" alt="company logo" width="120" height="50"></a>
-        </div>
+<body class="quotehistorybody">
+        <nav class="navbar">
+            <div class="navbar__container">
+                <a href="/" id="navbar__logo"><img src="/images/logo.png" height="75px"></a>
+                <div class="navbar__toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul class="navbar__menu">
+                    <li class="navbar__item">
+                        <a href="/" class="navbar__links">
+                            Home
+                        </a>
+                    </li>
+                    <li class="navbar__item">
+                        <a href="/" class="navbar__links">
+                            About Us
+                        </a>
+                    </li>
+                    <li class="navbar__item">
+                        <a  class="navbar__links">
+                            Request A Quote
+                        </a>
+                        <ul>
+                            <li class="dropdown__item">
+                                <a href="/quote" class="dropdown__links">Quote Form</a>
+                            </li>
+                            <li class="dropdown__item">
+                                <a href="/history" class="dropdown__links">Quote History</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="navbar__item">
+                        <a href="/" class="navbar__links">
+                            Contact Us
+                        </a>
+                    </li>
+                    <li class="navbar_btn">
+                        <a href="/login" class="button">
+                            Login
+                        </a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+        
         <div class="titlepage">
             <h1 class="title">Quote History</h1>
         </div>
-        <div class="navbar">
-            <ul>
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="./qoute.html">Get a quote</a></li>
-                <li><a href="./profile.html">Profile</a></li>
-            </ul>
-        </div>
+        <script src="/app.js"></script>
+ 
         <div class="quote">
-            <table>
+            <table class="historytable">
                 <thead class="qoutehistory">
                     <th>Id</th>
                     <th>Name</th>
@@ -110,5 +149,5 @@
                 </tbody>
             </table>
         </div>
-    </body>
+</body>
 </html>

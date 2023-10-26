@@ -540,49 +540,52 @@ button.submit_btn:hover {
 }
 
 /*Quote History Styling*/
-h2 {
-    font-family: Lato;
-    color: #E6E6E6;
-    margin:0px
-}
-
-h1 {
+.title {
     font-family: Forum;
     color: #D3D6D6;
     margin:0px;
 }
+
 .titlepage {
-    background-color: rgb(163, 145, 252);
+    background-color: #7983fc;
     padding-left: 20px;
     padding-top: 10px;
     margin:0px;
     height: 60px;
 }
 
-li a:link {
-    color: #000;
-    text-decoration: none;
+.quotehistorybody{
+    background-color: #cfcbfa;
+    margin:0px;
 }
-li a:hover {
-    color:#e9eeee;
-    text-decoration: none;
-}
-table {
+
+.historytable {
     margin:15px auto;
     padding: 0px 50px;
     border: 2px solid gray;
     background-color: #c7caca;
     border-radius: 10px;
 }
-th {
-    padding:0px 50px;
+
+.historytable th {
+    padding:0px 40px;
     font-family: Garamond;
     font-size: 20px;
 }
-td {
+
+.historytable td {
     background-color: #dfe2e2;
-    padding: 2px 50px;
+    padding: 2px 15px;
     font-size: 17px; 
     text-align: center;
     font-family: Garamond;
+}
+
+.center_text {
+    text-align: center;
+}
+
+a.center_text {
+    color: rgb(3, 2, 2);
+    display: block;
 }

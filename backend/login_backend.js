@@ -11,7 +11,7 @@ const users = [
   { username: 'user2', password: 'pass2' }
 ];
 
-app.post('/login', (req, res) => {
+app.post('/loginForm', (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
