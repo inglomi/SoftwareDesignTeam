@@ -18,7 +18,7 @@ router.get("/quote", (req, res) => {
 });
 
 router.get("/data", (req, res) => {
-	var query = 'SELECT addressOne, city, state, zipCode FROM user WHERE userID=1' //Replace WHERE userID=1 to actual log in user
+	var query = 'SELECT addressOne, city, state, zipCode FROM ClientInformation WHERE userID=1' //Replace WHERE userID=1 to actual log in user
 	db.query(query, (error, results) => {
 		if (error) {
 			console.error('Database error: ', error);
@@ -38,7 +38,7 @@ router.post("/save__quote", [
 	const gallons = req.body.gallons;
 	const deliveryDate = req.body.deliveryDate;
 
-	const query = "INSERT INTO quotes (userID, gallons, delivery) VALUES (1, ?, ?)";
+	const query = "INSERT INTO FuelQuotes (userID, gallons, delivery) VALUES (1, ?, ?)";
 	const values = [gallons, deliveryDate];
 
 	console.log(values);
