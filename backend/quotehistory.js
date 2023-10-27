@@ -1,32 +1,70 @@
+const express = require('express');
+const app = express();
+const mysql = require('mysql');
 
-//Adds new quote in table
-function newQuote(qoute){
-    let newqoute = document.createElement("tr");
-    qoute.forEach(function(data){
-    let cell = document.createElement("td");
-    cell.innerHTML = data;
-    newqoute.appendChild(cell);
+// Create a connection to the database
+const connection = mysql.createConnection({
+    host : "db4free.net",
+    port: '3306',
+    database : 'fuelquoteproject',
+    user : 'team5fuelquote',
+    password : '1caddf1a'
+});
+
+// Connect to the MySQL server
+connection.connect((err) =>{
+    if (err) {
+        console.error('Error connecting to database: ' + err.message);
+        return;
+    }
+    console.log('Connected to the database');
+});
+//Table generation
+function generateTable(data){
+    let html = '<table>';
+    data.forEach(row => {
+    html += '<tr>';
+    Object.values(row).forEach(value => {
+      html += `<td>${value}</td>`;
     });
-    return newqoute;
+    html += '</tr>';
+  });
+  html += '</table>';
+  return html;
 }
+app.get('/', (req, res) => {
+    // Fetch data from the database
+    connection.query('SELECT * FROM your_table_name', (error, results, fields) => {
+        if (error) throw error;
 
-//Test
-id = 20435;
-fullname = "Edith Finch";
-date = "2-17-2023";
-gallon_requested = 24;
-price = "$5300";
-address = "54 Tack Way";
-state = "Houston, Texas";
-zipcode = 77012;
-price_per_gallon = 220.8;
-deliverydate = "2-30-2023";
-
-//qoute properties
-let id,fullname,date,gallon_requested,price,address,state,zipcode,price_per_gallon,deliverydate;
-
-let qouteinfo = [id, fullname, date, gallon_requested, price, address, state, zipcode, price_per_gallon, deliverydate];
-
-let table = document.querySelector("tbody");
-table.appendChild(newQuote(qouteinfo));
+        const qoute = results.map(row => {
+            const name = row.fullname;
+            const date = row.qouteDate;
+            const gallon_requested = row.gallonRequested;
+            const address = row.Address1;
+            if (row.Address2 == ''){
+                address = row.Address2 + ","+row.Address1;
+            }
+            const price = suggestedPrice;
+            const state = row.City + ", "+row.state;
+            const zipcode = row.Zipcode;
+            const price_per_gallon = price / gallon_requested ;
+            const deliverydate = row.deliveryDate;
+      
+            return {name, date,gallon_requested,address, state, zipcode, price_per_gallon, deliverydate}; 
+          });
+      // Pass the data to the HTML template
+      res.send(`<html><body>${generateTable(qoute)}</body></html>`);
+    });
+  });
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+  });
+process.on('unhandledRejection', (err) => {
+    console.error('Unhandled Rejection:', err);
+});
+  
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+});
 
