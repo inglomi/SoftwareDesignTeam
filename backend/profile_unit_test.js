@@ -1,49 +1,43 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const expect = chai.expect;
-const server = require('../profile_back_end'); 
+const app = require('./app'); 
+const connection = require('./database'); 
+const { expect } = chai;
+
 chai.use(chaiHttp);
 
-describe('User Profile Update', () => {
-  it('should update user profile', async () => {
-    let updateProfile = {
-      firstName: 'Viet',
-      lastName: 'Pham',
-      address1: '123 street',
-      address2: 'optional',
-      city: 'Houston',
-      state: 'Texas',
-      zipcode: '77004'
-    };
-
-    const response = await chai.request(server)
-      .post('/profile_saved')
-      .send(updateProfile);
-
-    expect(response).to.have.status(200);
-    expect(server.userProfile).to.have.property('firstName', 'Viet');
-    expect(server.userProfile).to.have.property('lastName', 'Pham');
-    expect(server.userProfile).to.have.property('address1', '123 street');
-    expect(server.userProfile).to.have.property('address2', 'optional');
-    expect(server.userProfile).to.have.property('city', 'Houston');
-    expect(server.userProfile).to.have.property('state', 'Texas');
-    expect(server.userProfile).to.have.property('zipcode', '77004');
-  });
-});
-
-describe('User password reset', () =>{
-    it('should update user password', async () => {
-        let updatePassword = {
-          currentPass: 'aaaaaaaaaaaaa!',
-          newPass: 'bbbbbbbbbbbbbb!',
-        };
-
-        const response = await chai.request(server)
-          .post('/password_reset')
-          .send(updatePassword);
-        
-        expect(response).to.have.status(200);
-        expect(server.userPassword).to.have.property('currentPass', 'aaaaaaaaaaaaa!');
-        expect(server.userPassword).to.have.property('newPass', 'bbbbbbbbbbbbbb!');
+  describe('PATCH /update_info/:clientID', () => {
+    it('should update client information', (done) => {  
+      chai.request("http://localhost:3000")
+        .patch('/update_info/1') // Replace with a valid clientID
+        .send({
+          first_name: 'viet',
+          last_name: 'pham',
+          address1: '123 street blv',
+          city: 'houston',
+          state: 'texas',
+          zipcode: '77004',
+        })
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          expect(res.text).to.equal('updated!');
+          done();
+        });
     });
-});
+  });
+
+  describe('PATCH /update_login/:login_id', () => {
+    it('should update user password', (done) => {
+      chai.request('http://localhost:3000')
+        .patch('/update_login/1') 
+        .send({
+          "L_password": 'newpass1',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.text).to.equal('updated!');
+          done();
+        });
+    });
+  });
+
