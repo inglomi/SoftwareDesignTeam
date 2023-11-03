@@ -20,8 +20,10 @@ router.get("/quote", authenticationMiddleware(), (req, res) => {
 
 // Upon Get request to /data, retrieve and display the user address on the quote form
 router.get("/data", (req, res) => {
-	var query = 'SELECT addressOne, city, state, zipCode FROM ClientInformation WHERE userID=1' //Replace WHERE userID=1 to actual log in user
-	db.query(query, (error, results) => {
+	const userID = req.user.user_id;
+	var query = 'SELECT addressOne, addressTwo, city, state, zipCode FROM ClientInformation WHERE userID=?'; //Replace WHERE userID=1 to actual log in user
+	const values =[userID];
+	db.query(query, values, (error, results) => {
 		if (error) {
 			console.error('Database error: ', error);
 			res.status(500).send('Database error');

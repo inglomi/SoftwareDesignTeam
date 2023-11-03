@@ -16,7 +16,9 @@ app.use(bodyParser.urlencoded({ extended: false}));
 //Authentication Packages
 const session = require('express-session');
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const MySQLStore = require('express-mysql-session')(session);
+const bcrypt = require('bcrypt')
 
 const options = {
   host: process.env.host,
@@ -46,6 +48,38 @@ app.use(require('./routes/login'));
 app.use(require('./routes/registration'));
 app.use(require('./routes/profile'));
 app.use(require('./routes/history'));
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log(username);
+    console.log(password);
+    const db = require('./database_connection');
+
+    var query = 'SELECT userID, password FROM UserCredentials WHERE username=?'
+    var value = [username];
+    db.query(query, value, function(err, results, fields) {
+
+      if (err) {done(err)};
+
+      if (results.length === 0) {
+        done(null, false);
+      }
+
+      else {
+        const hash = results[0].password.toString();
+
+        bcrypt.compare(password, hash, function(err, response) {
+          if (response=== true) {
+            return done(null, {user_id: results[0].userID});
+          }
+          else {
+            return done(null, false);
+          }
+        });
+      }
+    })
+  }
+));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
