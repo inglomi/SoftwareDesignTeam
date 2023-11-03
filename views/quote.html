@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar__container">
-            <a href="/" id="navbar__logo"><img src="/images/logo.png" height="75px"></a>
+            <a href="#" id="navbar__logo"><img src="/images/logo.png" height="75px"></a>
             <div class="navbar__toggle" id="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -18,8 +18,8 @@
             </div>
             <ul class="navbar__menu">
                 <li class="navbar__item">
-                    <a href="/" class="navbar__links">
-                        Home
+                    <a href="/profile" class="navbar__links">
+                        Profile
                     </a>
                 </li>
                 <li class="navbar__item">
@@ -46,8 +46,8 @@
                     </a>
                 </li>
                 <li class="navbar_btn">
-                    <a href="/login" class="button">
-                        Login
+                    <a href="/logout" class="button">
+                        Logout
                     </a>
                 </li>
             </ul>
@@ -64,13 +64,13 @@
 
                 <div class="input-box">
                     <p>Gallons Requested:</p>
-                    <input type="number" name="gallons" placeholder="Number of Gallons" step=".001" class="form-control" min="0" required>
+                    <input type="number" name="gallons" id="gallons" placeholder="Number of Gallons" step=".001" class="form-control" min="0" required>
                 </div>
 
                 <div class="input-box">
                     <p>Delivery Address:</p>
                     <input type="text" id="address" name="address" placeholder="Street address" readonly></br>
-                    <input type="text" name="secondAddress" placeholder="Apt, suite, unit, building, floor, etc." readonly></br>
+                    <input type="text" name="secondAddress" id="secondAddress" placeholder="Apt, suite, unit, building, floor, etc." readonly></br>
                 </div>
 
                 <div class="input-box">
@@ -95,23 +95,26 @@
 
                 <div class="input-box">
                     <p>Suggested Price / gallon:</p>
-                    <input type="number" name="price" readonly>
+                    <input type="number" name="price" id="price" readonly>
                 </div>
 
                 <div class="input-box">
                     <p>Total Amount Due</p>
                     <input type="number" name="total" readonly>
                 </div> 
-                
-                <div>
-                    <button type="submit" class="submit_btn">Submit</button>
+
+                <div class="button_containers">
+                    <button type="buton" class="get_quote_btn" id="get_quote_btn">Get Quote</button>
+                    <button type="submit" class="quote_submit_btn">Submit</button>
                 </div>
             </form>
+
             <script>
             fetch('/data')
             .then(response => response.json())
             .then(data => {
                 document.getElementById("address").value = data.addressOne;
+                document.getElementById("secondAddress").value = data.addressTwo;
                 document.getElementById("city").value = data.city;
                 document.getElementById("state").value = data.state;
                 document.getElementById("zipcode").value = data.zipCode;
@@ -120,6 +123,7 @@
                 console.error("Error fetching data:", error);
             });
             </script>
+
         </div>
     </div>
 

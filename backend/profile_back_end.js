@@ -36,8 +36,3 @@ server.post('/password_reset', (req, res) => {
   userPassword = { currentPass, newPass };
   res.send('Your password has been updated!');
 });
-
-server.listen(port, () => {
-  console.log(`server is running on port: ${port}`);
-});
-
