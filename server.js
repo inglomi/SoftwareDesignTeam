@@ -31,7 +31,7 @@ const options = {
 const sessionStore = new MySQLStore(options);
 
 app.use(session({
-	secret: '8fa1dee245a27cc3c2e12c58634247df932b3582e79baa3f55430ce156999027c434b11e472681f1d134d932b42a37a45c8e394ce744dfa5ed475c2497990c23',
+	secret: process.env.secret,
 	resave: false,
   store: sessionStore,
 	saveUninitialized: false,
