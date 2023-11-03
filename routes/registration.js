@@ -6,6 +6,7 @@ const db = require('../database_connection');
 const bodyParser = require('body-parser');
 
 const { body, validationResult, expressValidator } = require('express-validator');
+const passport = require('passport');
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -51,11 +52,35 @@ router.post("/register", registrationValidationRules, (req, res) => {
 					res.status(500).send('Database error');
 				}
 				else {
-					res.send('Registration Complete');
+					db.query('SELECT LAST_INSERT_ID() as user_id', function(err, result, fields) {
+						if (error) {
+							console.error('Database error: ', error);
+							res.status(500).send('Database error');
+						}
+
+						const user_id = result[0]
+
+						console.log(result[0]);
+
+						req.login(user_id, function(err) {
+							res.redirect('/');
+						});
+
+						// res.send('Registration Complete');
+					})
 				}
 			});
+
 		});
 	}
+});
+
+passport.serializeUser(function(user_id, done) {
+	done(null, user_id);
+});
+  
+passport.deserializeUser(function(user_id, done) {
+	  done(null, user_id);
 });
 
 module.exports = router;

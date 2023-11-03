@@ -8,7 +8,9 @@ const bodyParser = require('body-parser');
 app.use(express.urlencoded({ extended: false}));
 router.use(bodyParser.urlencoded({ extended: true}));
 
-router.get("/profile", (req, res) => {
+const authenticationMiddleware = require('../modules/userAuth')
+
+router.get("/profile", authenticationMiddleware(), (req, res) => {
 	const filePath = path.join(__dirname, '../views/profile.html')
 	res.sendFile(filePath);
 });

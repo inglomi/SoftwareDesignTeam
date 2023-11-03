@@ -7,12 +7,13 @@ const bodyParser = require('body-parser');
 
 
 const { body, validationResult } = require('express-validator');
+const authenticationMiddleware = require('../modules/userAuth')
 
 app.use(express.urlencoded({ extended: false}));
 router.use(bodyParser.urlencoded({ extended: true}));
 
 // Upon Get Request to /quote path, serve the quote page
-router.get("/quote", (req, res) => {
+router.get("/quote", authenticationMiddleware(), (req, res) => {
 	const filePath = path.join(__dirname, '../views/quote.html')
 	res.sendFile(filePath);
 });
