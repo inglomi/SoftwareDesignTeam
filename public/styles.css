@@ -520,6 +520,45 @@ body {
     padding: 0 15px;
 }
 
+.button_containers {
+    display: flex;
+    grid-template-columns: repeat(n, 1fr);
+    gap: 10px;
+}
+
+.get_quote_btn {
+    height: 55px;
+    width: 50%;
+    color: #ffffff;
+    font-size: 1rem;
+    border: none;
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    background-color: rgb(130, 106, 251);
+}
+
+button.get_quote_btn:hover {
+    background-color: rgb(88, 103, 250);
+}
+
+.quote_submit_btn {
+    height: 55px;
+    width: 50%;
+    color: #ffffff;
+    font-size: 1rem;
+    border: none;
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    background-color: rgb(130, 106, 251);
+
+}
+
 .submit_btn {
     height: 55px;
     width: 100%;
@@ -534,6 +573,11 @@ body {
     background-color: rgb(130, 106, 251);
 
 }
+
+button.quote_submit_btn:hover {
+    background-color: rgb(88, 103, 250);
+}
+
 
 button.submit_btn:hover {
     background-color: rgb(88, 103, 250);

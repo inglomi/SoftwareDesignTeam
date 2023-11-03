@@ -11,12 +11,13 @@ const { body, validationResult } = require('express-validator');
 app.use(express.urlencoded({ extended: false}));
 router.use(bodyParser.urlencoded({ extended: true}));
 
-
+// Upon Get Request to /quote path, serve the quote page
 router.get("/quote", (req, res) => {
 	const filePath = path.join(__dirname, '../views/quote.html')
 	res.sendFile(filePath);
 });
 
+// Upon Get request to /data, retrieve and display the user address on the quote form
 router.get("/data", (req, res) => {
 	var query = 'SELECT addressOne, city, state, zipCode FROM ClientInformation WHERE userID=1' //Replace WHERE userID=1 to actual log in user
 	db.query(query, (error, results) => {
@@ -26,20 +27,23 @@ router.get("/data", (req, res) => {
 		}
 		else {
 			const userAddress = results[0];
-            res.json(userAddress);
+			res.json(userAddress);
 		}
 	})
 });
 
+// On form submission using the POST method, retreive the body information and update the table with the values.
 router.post("/save__quote", [
   body('gallons').isFloat({ min: 0 }).withMessage('Gallons must be a positive number.'),
   body('deliveryDate').isAfter().withMessage('Please select a valid future date.'),
 ], (req,res) => {
 	const gallons = req.body.gallons;
 	const deliveryDate = req.body.deliveryDate;
+	const price = req.body.price;
+	const total = req.body.total;
 
 	const query = "INSERT INTO FuelQuotes (userID, gallons, delivery) VALUES (1, ?, ?)";
-	const values = [gallons, deliveryDate];
+	const values = [gallons, deliveryDate, price, total];
 
 	console.log(values);
 

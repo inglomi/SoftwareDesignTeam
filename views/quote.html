@@ -64,7 +64,7 @@
 
                 <div class="input-box">
                     <p>Gallons Requested:</p>
-                    <input type="number" name="gallons" placeholder="Number of Gallons" step=".001" class="form-control" min="0" required>
+                    <input type="number" name="gallons" id="gallons" placeholder="Number of Gallons" step=".001" class="form-control" min="0" required>
                 </div>
 
                 <div class="input-box">
@@ -95,18 +95,20 @@
 
                 <div class="input-box">
                     <p>Suggested Price / gallon:</p>
-                    <input type="number" name="price" readonly>
+                    <input type="number" name="price" id="price" readonly>
                 </div>
 
                 <div class="input-box">
                     <p>Total Amount Due</p>
                     <input type="number" name="total" readonly>
                 </div> 
-                
-                <div>
-                    <button type="submit" class="submit_btn">Submit</button>
+
+                <div class="button_containers">
+                    <button type="buton" class="get_quote_btn" id="get_quote_btn">Get Quote</button>
+                    <button type="submit" class="quote_submit_btn">Submit</button>
                 </div>
             </form>
+
             <script>
             fetch('/data')
             .then(response => response.json())
@@ -120,6 +122,7 @@
                 console.error("Error fetching data:", error);
             });
             </script>
+
         </div>
     </div>
 
