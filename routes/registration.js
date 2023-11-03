@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 
 const { body, validationResult, expressValidator } = require('express-validator');
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 app.use(express.urlencoded({ extended: false}));
 router.use(bodyParser.urlencoded({ extended: true}));
 
@@ -30,25 +33,29 @@ router.post("/register", registrationValidationRules, (req, res) => {
         return res.status(400).json({ message: errors.array()[0].msg });
     }
 
-	if (req.body.password !== req.body.confirmpassword) {
+	else if (req.body.password !== req.body.confirmpassword) {
         return res.status(400).json({ message: 'Passwords do not match, please try again.' });
     }
-	
-	username= req.body.username;
-	password = req.body.password;
 
-	const query = "INSERT INTO UserCredentials (username, password) VALUES (?, ?)";
-	const values = [username, password]
+	else {
+		username= req.body.username;
+		password = req.body.password;
 
-	db.query(query, values, (error, results) => {
-		if (error) {
-			console.error('Database error: ', error);
-			res.status(500).send('Database error');
-		}
-		else {
-			res.send('Registration Complete');
-		}
-	});
+		bcrypt.hash(password, saltRounds, function(err, hash) {
+			const query = "INSERT INTO UserCredentials (username, password) VALUES (?, ?)";
+			const values = [username, hash];
+		
+			db.query(query, values, (error, results) => {
+				if (error) {
+					console.error('Database error: ', error);
+					res.status(500).send('Database error');
+				}
+				else {
+					res.send('Registration Complete');
+				}
+			});
+		});
+	}
 });
 
 module.exports = router;
