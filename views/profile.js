@@ -1,4 +1,4 @@
-const backend_url = "http://localhost:3000";
+const backend_url = "http://localhost:8080";
 //we need to find a way to retrieve the user id whenever they login with their username and password
 //then store that userID locally like: window.localStorage.setItem("userID", userID);
 //and this id we can get it like:  const id = window.localStorage.getItem("userID");
