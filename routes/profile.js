@@ -41,14 +41,21 @@ router.get("/user_info/:id", (req, res) => {
 //update user information by ID
 router.patch("/update_user_info/:id", (req, res) => {
   const { id } = req.params;
-  const { first_name, last_name, address1, address2, city, state, zipcode } =
-    req.body;
+  const {
+    first_name,
+    last_name,
+    addressOne,
+    addressTwo,
+    city,
+    state,
+    zipCode,
+  } = req.body;
 
   const query =
     "UPDATE ClientInformation SET first_name = ?, last_name = ?, addressOne = ?, addressTwo = ?, city = ?, state = ?, zipCode = ? WHERE userID = ?";
   db.query(
     query,
-    [first_name, last_name, address1, address2, city, state, zipcode, id],
+    [first_name, last_name, addressOne, addressTwo, city, state, zipCode, id],
     (err, result) => {
       if (err) {
         res.status(500).json({ error: err.message });
