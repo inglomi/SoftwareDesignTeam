@@ -10,7 +10,7 @@
 <body>
     <header>
         <nav class="navbar">
-            <a href="quote.html"><i class="fa-solid fa-house"></i></a>
+            <a href="quote"><i class="fa-solid fa-house"></i></a>
         </nav>
     </header>
     <main>
@@ -119,6 +119,54 @@
             </div>
         </div>
     </main>
-    <script src="profile.js"></script>
+    <!-- <script src="profile.js"></script> -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/user_info")
+        .then((res) => res.json())
+        .then((data) => load_user_info_by_id(data["data"]));
+    });
+    function load_user_info_by_id(data) {
+        let user_info = data[0];
+        const form = document.querySelector("#user_update_info_form");
+        let elements = Array.from(form.elements);
+        //insert the data into the input box according to the name
+        for (let element of elements) {
+            if (user_info[element.name]) element.value = user_info[element.name];
+        }
+    }
+    
+    document
+    .getElementById("user_update_info_form")
+    .addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        
+        const form = document.getElementById("user_update_info_form");
+        //get input data from the form
+        const formData = new FormData(form);
+        
+        // Convert the form data to a JSON object
+        const jsonObject = {};
+        //convert it into an json object
+        formData.forEach((value, key) => {
+            jsonObject[key] = value;
+        });
+        
+        //fetch the api to update the user information
+        fetch("/update_user_info" , {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "PATCH",
+            //send the body as json object
+            body: JSON.stringify(jsonObject),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+        });
+    });
+    
+    </script>
 </body>
 </html>

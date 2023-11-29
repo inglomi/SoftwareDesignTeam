@@ -11,12 +11,15 @@ router.use(bodyParser.urlencoded({ extended: true}));
 const authenticationMiddleware = require('../modules/userAuth')
 
 router.get("/profile", authenticationMiddleware(), (req, res) => {
+  let user_id = req.user.user_id;
+  console.log(user_id)
 	const filePath = path.join(__dirname, '../views/profile.html')
 	res.sendFile(filePath);
 });
 //get user information by userID to load in it the input box
-router.get("/user_info/:id", (req, res) => {
-  const { id } = req.params;
+router.get("/user_info", (req, res) => {
+  const id = req.user.user_id;
+  console.log(id);
 
   const response = new Promise((resolve, reject) => {
     const query =
@@ -26,6 +29,7 @@ router.get("/user_info/:id", (req, res) => {
         reject(new Error(err.message));
       } else {
         resolve(results);
+        console.log(results)
       }
     });
   });
@@ -39,8 +43,9 @@ router.get("/user_info/:id", (req, res) => {
 });
 
 //update user information by ID
-router.patch("/update_user_info/:id", (req, res) => {
-  const { id } = req.params;
+router.patch("/update_user_info", (req, res) => {
+  const id = req.user.user_id;
+  console.log(id);
   const {
     first_name,
     last_name,

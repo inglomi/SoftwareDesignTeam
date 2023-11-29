@@ -60,7 +60,7 @@
     <div class="form_style">
         <div class="container">
             <header>Fuel Quote Form</header>
-            <form action="/save__quote" method="POST" class="form">
+            <form action="/save__quote" method="POST" id="quoteForm" class="form">
 
                 <div class="input-box">
                     <p>Gallons Requested:</p>
@@ -104,24 +104,55 @@
                 </div> 
 
                 <div class="button_containers">
-                    <button type="buton" class="get_quote_btn" id="get_quote_btn">Get Quote</button>
+                    <button type="button" class="get_quote_btn" id="get_quote_btn">Get Quote</button>
                     <button type="submit" class="quote_submit_btn">Submit</button>
                 </div>
             </form>
 
             <script>
-            fetch('/data')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("address").value = data.addressOne;
-                document.getElementById("secondAddress").value = data.addressTwo;
-                document.getElementById("city").value = data.city;
-                document.getElementById("state").value = data.state;
-                document.getElementById("zipcode").value = data.zipCode;
-            })
-            .catch(error => {
-                console.error("Error fetching data:", error);
-            });
+                document.addEventListener('DOMContentLoaded', function () {
+                    var form = document.getElementById('quoteForm');
+                    var getQuoteButton = document.getElementById('get_quote_btn');
+                    
+                    function enableGetQuoteButton() {
+                        var inputs = form.querySelectorAll('input:not([readonly])');
+                        var allInputsFilled = true;
+                        inputs.forEach(function (input) {
+                            if (input.value === '') {
+                                allInputsFilled = false;
+                            }
+                        });
+                        getQuoteButton.disabled = !allInputsFilled;
+                    }
+                    form.addEventListener('input', enableGetQuoteButton);
+
+                    enableGetQuoteButton();
+                });
+
+                function get_quote() {
+                    fetch('/get_quote')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementByID("price").value = data.price;
+                        document.getElementById("total").value = data.total;
+                    })
+                    .catch(error => {
+                        console.error("Error fetching pricing data:", error);
+                    })
+                }
+
+                fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("address").value = data.addressOne;
+                    document.getElementById("secondAddress").value = data.addressTwo;
+                    document.getElementById("city").value = data.city;
+                    document.getElementById("state").value = data.state;
+                    document.getElementById("zipcode").value = data.zipCode;
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
             </script>
 
         </div>

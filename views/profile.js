@@ -6,20 +6,21 @@ const backend_url = "http://localhost:8080";
 const id = 2;
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch(backend_url + "/user_info/" + id)
+  fetch("/user_info")
+  console.log("request made")
     .then((res) => res.json())
     .then((data) => load_user_info_by_id(data["data"]));
-});
-
-function load_user_info_by_id(data) {
-  let user_info = data[0];
-  const form = document.querySelector("#user_update_info_form");
-  let elements = Array.from(form.elements);
-  //insert the data into the input box according to the name
-  for (let element of elements) {
-    if (user_info[element.name]) element.value = user_info[element.name];
+  });
+  
+  function load_user_info_by_id(data) {
+    let user_info = data[0];
+    const form = document.querySelector("#user_update_info_form");
+    let elements = Array.from(form.elements);
+    //insert the data into the input box according to the name
+    for (let element of elements) {
+      if (user_info[element.name]) element.value = user_info[element.name];
+    }
   }
-}
 
 document
   .getElementById("user_update_info_form")

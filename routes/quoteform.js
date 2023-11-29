@@ -21,7 +21,8 @@ router.get("/quote", authenticationMiddleware(), (req, res) => {
 // Upon Get request to /data, retrieve and display the user address on the quote form
 router.get("/data", (req, res) => {
 	const userID = req.user.user_id;
-	var query = 'SELECT addressOne, addressTwo, city, state, zipCode FROM ClientInformation WHERE userID=?'; //Replace WHERE userID=1 to actual log in user
+	console.log(userID)
+	var query = 'SELECT addressOne, addressTwo, city, state, zipCode FROM ClientInformation WHERE userID=?'; 
 	const values =[userID];
 	db.query(query, values, (error, results) => {
 		if (error) {
@@ -40,13 +41,14 @@ router.post("/save__quote", [
   body('gallons').isFloat({ min: 0 }).withMessage('Gallons must be a positive number.'),
   body('deliveryDate').isAfter().withMessage('Please select a valid future date.'),
 ], (req,res) => {
+	const userID = req.user.user_id;
 	const gallons = req.body.gallons;
 	const deliveryDate = req.body.deliveryDate;
 	const price = req.body.price;
 	const total = req.body.total;
 
-	const query = "INSERT INTO FuelQuotes (userID, gallons, delivery) VALUES (1, ?, ?)";
-	const values = [gallons, deliveryDate, price, total];
+	const query = "INSERT INTO FuelQuotes (userID, gallons, delivery, price, total) VALUES (?, ?, ?, ?, ?)";
+	const values = [userID, gallons, deliveryDate, price, total];
 
 	console.log(values);
 

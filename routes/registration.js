@@ -63,7 +63,7 @@ router.post("/register", registrationValidationRules, (req, res) => {
 						console.log(result[0]);
 
 						req.login(user_id, function(err) {
-							res.redirect('/');
+							res.redirect('/profile');
 						});
 
 						// res.send('Registration Complete');
