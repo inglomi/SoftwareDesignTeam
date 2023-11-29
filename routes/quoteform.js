@@ -57,7 +57,6 @@ router.get('/get_quote', async (req, res) => {
         console.log(hasRateHistory);
 
         const gallons = req.query.gallons;
-		console.log(gallons)
         const state = req.query.state;
 
         const currentPrice = 1.50;
@@ -65,11 +64,9 @@ router.get('/get_quote', async (req, res) => {
         const rateHistoryFactor = hasRateHistory.length > 0 ? 0.01 : 0;
         const gallonsRequestedFactor = gallons > 1000 ? 0.02 : 0.03;
         const companyProfitFactor = 0.10;
-        const margin = locationFactor - rateHistoryFactor + gallonsRequestedFactor + companyProfitFactor;
+        const margin = ((locationFactor - rateHistoryFactor + gallonsRequestedFactor + companyProfitFactor)*currentPrice);
         const suggestedPrice = currentPrice + margin;
         const totalAmountDue = gallons * suggestedPrice;
-		console.log(suggestedPrice);
-		console.log(totalAmountDue);
 
         res.json({ suggestedPrice, totalAmountDue });
     } catch (error) {
@@ -87,12 +84,17 @@ router.post("/save__quote", [
 ], (req,res) => {
 	const userID = req.user.user_id;
 	const gallons = req.body.gallons;
+	const address = req.body.address;
+	const addressTwo = req.body.secondAddress;
+	const city = req.body.city;
+	const state = req.body.state;
+	const zip = req.body.zip;
 	const deliveryDate = req.body.deliveryDate;
 	const price = req.body.price;
 	const total = req.body.total;
 
-	const query = "INSERT INTO FuelQuotes (userID, gallons, deliveryDate, price, total) VALUES (?, ?, ?, ?, ?)";
-	const values = [userID, gallons, deliveryDate, price, total];
+	const query = "INSERT INTO FuelQuotes (userID, gallons, address, secondAddress, city, state, zip, deliveryDate, price, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	const values = [userID, gallons, address, addressTwo, city, state, zip, deliveryDate, price, total];
 
 	console.log(values);
 
@@ -102,7 +104,7 @@ router.post("/save__quote", [
 			res.status(500).send('Database error');
 		}
 		else {
-			res.send('Data updated successfully');
+			res.redirect('/history');
 		}
 	});
 });

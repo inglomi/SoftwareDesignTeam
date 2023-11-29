@@ -129,13 +129,14 @@
 
                     function get_quote() {
                         const gallons = parseFloat(document.getElementById("gallons").value);
+                        const state = document.getElementById("state").value;
 
                         if (isNaN(gallons)) {
                             console.error("Invalid gallon amount");
                             return;
                         }
 
-                        const url = `/get_quote?gallons=${gallons}`;
+                        const url = `/get_quote?gallons=${gallons}&state=${encodeURIComponent(state)}`;
 
                         fetch(url)
                         .then(response => response.json())
@@ -170,34 +171,6 @@
                 .catch(error => {
                     console.error("Error fetching data:", error);
                 });
-            </script>
-
-            <script>
-            // document.getElementById('get_quote_btn').addEventListener('click', function(event) {
-            //     event.preventDefault();
-                
-            //     const gallons = parseFloat(document.getElementById('gallons').value);
-            //     const state = document.getElementById('state').value;
-                
-            //     const url = '/calculate-quote';
-            //     const data = { gallons, state };
-                
-            //     fetch(url, {
-            //         method: 'POST',
-            //         headers: { 'Content-Type': 'application/json' },
-            //         body: JSON.stringify(data)
-            //     })
-                
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         document.getElementById('price').value = data.suggestedPrice.toFixed(3);
-            //         document.getElementById('total').value = data.totalAmountDue.toFixed(2);
-            //     })
-                
-            //     .catch(error => {
-            //         console.error('Error:', error);
-            //     });
-            // });
             </script>
 
         </div>
