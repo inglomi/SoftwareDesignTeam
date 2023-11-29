@@ -100,12 +100,12 @@
 
                 <div class="input-box">
                     <p>Total Amount Due</p>
-                    <input type="number" name="total" readonly>
+                    <input type="number" name="total" id="total" readonly>
                 </div> 
 
                 <div class="button_containers">
                     <button type="button" class="get_quote_btn" id="get_quote_btn">Get Quote</button>
-                    <button type="submit" class="quote_submit_btn">Submit</button>
+                    <button type="submit" class="quote_submit_btn" id="quote_submit_btn">Submit</button>
                 </div>
             </form>
 
@@ -113,6 +113,7 @@
                 document.addEventListener('DOMContentLoaded', function () {
                     var form = document.getElementById('quoteForm');
                     var getQuoteButton = document.getElementById('get_quote_btn');
+                    var submitButton = document.getElementById('quote_submit_btn');
                     
                     function enableGetQuoteButton() {
                         var inputs = form.querySelectorAll('input:not([readonly])');
@@ -123,23 +124,39 @@
                             }
                         });
                         getQuoteButton.disabled = !allInputsFilled;
+                        submitButton.disabled = !allInputsFilled;
+                    }
+
+                    function get_quote() {
+                        const gallons = parseFloat(document.getElementById("gallons").value);
+
+                        if (isNaN(gallons)) {
+                            console.error("Invalid gallon amount");
+                            return;
+                        }
+
+                        const url = `/get_quote?gallons=${gallons}`;
+
+                        fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            document.getElementById("price").value = data.suggestedPrice;
+                            document.getElementById("total").value = data.totalAmountDue;
+                        })
+                        .catch(error => {
+                            console.error("Error fetching pricing data:", error);
+                        })
                     }
                     form.addEventListener('input', enableGetQuoteButton);
 
+                    document.getElementById('get_quote_btn').addEventListener('click', function(event) {
+                        event.preventDefault();
+                        get_quote();
+                    });
+
                     enableGetQuoteButton();
                 });
-
-                function get_quote() {
-                    fetch('/get_quote')
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementByID("price").value = data.price;
-                        document.getElementById("total").value = data.total;
-                    })
-                    .catch(error => {
-                        console.error("Error fetching pricing data:", error);
-                    })
-                }
 
                 fetch('/data')
                 .then(response => response.json())
@@ -153,6 +170,34 @@
                 .catch(error => {
                     console.error("Error fetching data:", error);
                 });
+            </script>
+
+            <script>
+            // document.getElementById('get_quote_btn').addEventListener('click', function(event) {
+            //     event.preventDefault();
+                
+            //     const gallons = parseFloat(document.getElementById('gallons').value);
+            //     const state = document.getElementById('state').value;
+                
+            //     const url = '/calculate-quote';
+            //     const data = { gallons, state };
+                
+            //     fetch(url, {
+            //         method: 'POST',
+            //         headers: { 'Content-Type': 'application/json' },
+            //         body: JSON.stringify(data)
+            //     })
+                
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         document.getElementById('price').value = data.suggestedPrice.toFixed(3);
+            //         document.getElementById('total').value = data.totalAmountDue.toFixed(2);
+            //     })
+                
+            //     .catch(error => {
+            //         console.error('Error:', error);
+            //     });
+            // });
             </script>
 
         </div>

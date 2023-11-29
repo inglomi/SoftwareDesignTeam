@@ -12,7 +12,9 @@ router.post('/quote', (req, res) => {
   const companyProfitFactor = 0.10;
   const margin = locationFactor - rateHistoryFactor + gallonsRequestedFactor + companyProfitFactor;
   const suggestedPrice = currentPrice + margin;
+  console.log(suggestedPrice);
   const totalAmountDue = gallons * suggestedPrice;
+  console.log(totalAmountDue)
 
   // Send the calculated values as JSON response
   res.json({ suggestedPrice, totalAmountDue });

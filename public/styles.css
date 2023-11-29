@@ -573,6 +573,7 @@ button.get_quote_btn:hover {
     background-color: rgb(130, 106, 251);
 
 }
+
 .get_quote_btn:disabled {
     background-color: #ccc;
     color: #666;
@@ -580,6 +581,18 @@ button.get_quote_btn:hover {
 }
 
 .get_quote_btn:disabled:hover {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+button.quote_submit_btn:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+button.quote_submit_btn:disabled:hover {
     background-color: #ccc;
     color: #666;
     cursor: not-allowed;

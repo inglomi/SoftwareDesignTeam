@@ -36,6 +36,50 @@ router.get("/data", (req, res) => {
 	})
 });
 
+
+router.get('/get_quote', async (req, res) => {
+    try {
+        const userID = req.user.user_id;
+        const rateHistoryQuery = 'SELECT quoteID FROM FuelQuotes WHERE UserID=?';
+        const values = [userID];
+
+        const hasRateHistory = await new Promise((resolve, reject) => {
+            db.query(rateHistoryQuery, values, (error, results) => {
+                if (error) {
+                    console.error('Database error: ', error);
+                    reject(error);
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+
+        console.log(hasRateHistory);
+
+        const gallons = req.query.gallons;
+		console.log(gallons)
+        const state = req.query.state;
+
+        const currentPrice = 1.50;
+        const locationFactor = state === 'TX' ? 0.02 : 0.04;
+        const rateHistoryFactor = hasRateHistory.length > 0 ? 0.01 : 0;
+        const gallonsRequestedFactor = gallons > 1000 ? 0.02 : 0.03;
+        const companyProfitFactor = 0.10;
+        const margin = locationFactor - rateHistoryFactor + gallonsRequestedFactor + companyProfitFactor;
+        const suggestedPrice = currentPrice + margin;
+        const totalAmountDue = gallons * suggestedPrice;
+		console.log(suggestedPrice);
+		console.log(totalAmountDue);
+
+        res.json({ suggestedPrice, totalAmountDue });
+    } catch (error) {
+        console.error('Error in route handler: ', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
 // On form submission using the POST method, retreive the body information and update the table with the values.
 router.post("/save__quote", [
   body('gallons').isFloat({ min: 0 }).withMessage('Gallons must be a positive number.'),
@@ -47,7 +91,7 @@ router.post("/save__quote", [
 	const price = req.body.price;
 	const total = req.body.total;
 
-	const query = "INSERT INTO FuelQuotes (userID, gallons, delivery, price, total) VALUES (?, ?, ?, ?, ?)";
+	const query = "INSERT INTO FuelQuotes (userID, gallons, deliveryDate, price, total) VALUES (?, ?, ?, ?, ?)";
 	const values = [userID, gallons, deliveryDate, price, total];
 
 	console.log(values);
@@ -58,7 +102,7 @@ router.post("/save__quote", [
 			res.status(500).send('Database error');
 		}
 		else {
-			res.send('Data updated successfuly');
+			res.send('Data updated successfully');
 		}
 	});
 });
