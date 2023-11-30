@@ -22,7 +22,7 @@ connection.connect((err) =>{
 
 app.get('/sendData', (req, res) => {
     // Fetch data from the database
-    connection.query('SELECT * FROM FuelQuotes WHERE userID = ?', (error, results, fields) => {
+    connection.query('SELECT * FROM FuelQuotes', (error, results, fields) => {
         if (error) throw error;
 
         const qoute = results.map(row => {
