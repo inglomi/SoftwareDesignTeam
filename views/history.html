@@ -61,7 +61,7 @@
         <script>
             fetch('/sendData')
             .then(response => response.json())
-            .then(data => {
+            .then(quote => {
             // Handle the received data
             const dataContainer = document.getElementById('orderhistory');
             let row ='';
