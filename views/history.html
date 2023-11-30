@@ -58,7 +58,22 @@
             <h1 class="title">Quote History</h1>
         </div>
         <script src="/app.js"></script>
- 
+        <script>
+            fetch('/sendData')
+            .then(response => response.json())
+            .then(data => {
+            // Handle the received data
+            const dataContainer = document.getElementById('orderhistory');
+            let row ='';
+            quote.forEach(item => {
+                row +=`<tr><td>item.quoteID</td><td>item.gallon_requested</td><td>item.address</td><td>item.state</td><td>item.zipcode</td><td>item.price_per_gallon</td><td>item.total</td><td>item.deliverydate</td></tr>`
+            });
+            dataContainer.innerHTML = row;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        </script>
         <div class="quote">
             <table class="historytable">
                 <thead class="qoutehistory">
