@@ -19,22 +19,10 @@ connection.connect((err) =>{
     }
     console.log('Connected to the database');
 });
-//Table generation
-function generateTable(data){
-    let html = '<table>';
-    data.forEach(row => {
-    html += '<tr>';
-    Object.values(row).forEach(value => {
-      html += `<td>${value}</td>`;
-    });
-    html += '</tr>';
-  });
-  html += '</table>';
-  return html;
-}
+
 app.get('/sendData', (req, res) => {
     // Fetch data from the database
-    connection.query('SELECT * FROM FuelQuotes', (error, results, fields) => {
+    connection.query('SELECT * FROM FuelQuotes WHERE userID = ?', (error, results, fields) => {
         if (error) throw error;
 
         const qoute = results.map(row => {
@@ -58,13 +46,3 @@ app.get('/sendData', (req, res) => {
       res.json(qoute);
     });
   });
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
-  });
-process.on('unhandledRejection', (err) => {
-    console.error('Unhandled Rejection:', err);
-});
-  
-process.on('uncaughtException', (err) => {
-    console.error('Uncaught Exception:', err);
-});
