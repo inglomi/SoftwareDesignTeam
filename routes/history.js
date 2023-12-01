@@ -26,7 +26,7 @@ router.get("/sendData", (req, res) => {
 		  throw error;
 		} else {
 		  const quote = results.map(row => {
-			let qouteID = row.quoteID;
+			let quoteID = row.quoteID;
 			let gallon_requested = row.gallons;
 			let address = row.address;
 			if (row.secondAddress != ''){
@@ -39,7 +39,7 @@ router.get("/sendData", (req, res) => {
 			let date = row.deliveryDate;
 			let deliverydate = date.toDateString();
 		
-			return {qouteID,gallon_requested,address, state, zipcode, price_per_gallon, total, deliverydate}; 
+			return {quoteID,gallon_requested,address, state, zipcode, price_per_gallon, total, deliverydate}; 
 			});
 			res.json(quote);
 		}
