@@ -66,7 +66,7 @@
             const dataContainer = document.getElementById('orderhistory');
             let row ='';
             quote.forEach(item => {
-                row +=`<tr><td>item.quoteID</td><td>item.gallon_requested</td><td>item.address</td><td>item.state</td><td>item.zipcode</td><td>item.price_per_gallon</td><td>item.total</td><td>item.deliverydate</td></tr>`
+                row +=`<tr><td>${item.quoteID}</td><td>${item.gallon_requested}</td><td>${item.address}</td><td>${item.state}</td><td>${item.zipcode}</td><td>${item.price_per_gallon}</td><td>${item.total}</td><td>${item.deliverydate}</td></tr>`
             });
             dataContainer.innerHTML = row;
         })
