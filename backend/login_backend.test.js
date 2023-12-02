@@ -1,70 +1,36 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const server = require('../login_backend'); // Assuming your backend file is named login_backend.js
-const should = chai.should();
+const request = require('supertest');
+const app = require('../server');
 
-chai.use(chaiHttp);
-
-describe('/POST login', () => {
-  it('it should not POST a login without username field', (done) => {
-    let login = {
-      password: "password1"
-    }
-    chai.request(server)
-      .post('/login')
-      .send(login)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('string');
-        res.body.should.be.eql('Missing username or password');
-        done();
-      });
+describe('Login backend routes', () => {
+  test('POST /loginForm should return login successful for valid credentials', async () => {
+    const response = await request(app)
+      .post('/loginForm')
+      .send({ username: 'user1', password: 'pass1' });
+    expect(response.statusCode).toBe(200);
+    expect(response.text).toBe('Login successful');
   });
 
-  it('it should not POST a login without password field', (done) => {
-    let login = {
-      username: "user1"
-    }
-    chai.request(server)
-      .post('/login')
-      .send(login)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('string');
-        res.body.should.be.eql('Missing username or password');
-        done();
-      });
+  test('POST /loginForm should return invalid username or password for invalid credentials', async () => {
+    const response = await request(app)
+      .post('/loginForm')
+      .send({ username: 'user1', password: 'wrong' });
+    expect(response.statusCode).toBe(401);
+    expect(response.text).toBe('Invalid username or password');
   });
 
-  it('it should POST a login with valid username and password', (done) => {
-    let login = {
-      username: "user1",
-      password: "pass1"
-    }
-    chai.request(server)
-      .post('/login')
-      .send(login)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('string');
-        res.body.should.be.eql('Login successful');
-        done();
-      });
+  test('POST /loginForm should return missing username or password for empty credentials', async () => {
+    const response = await request(app)
+      .post('/loginForm')
+      .send({ username: '', password: '' });
+    expect(response.statusCode).toBe(400);
+    expect(response.text).toBe('Missing username or password');
   });
 
-  it('it should not POST a login with invalid username and password', (done) => {
-    let login = {
-      username: "invalidUser",
-      password: "invalidPass"
-    }
-    chai.request(server)
-      .post('/login')
-      .send(login)
-      .end((err, res) => {
-        res.should.have.status(401);
-        res.body.should.be.a('string');
-        res.body.should.be.eql('Invalid username or password');
-        done();
-      });
+  test('POST /loginForm should return username or password too long for long credentials', async () => {
+    const response = await request(app)
+      .post('/loginForm')
+      .send({ username: 'user1'.repeat(5), password: 'pass1'.repeat(5) });
+    expect(response.statusCode).toBe(400);
+    expect(response.text).toBe('Username or password too long');
   });
 });
